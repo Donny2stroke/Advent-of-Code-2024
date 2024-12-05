@@ -13,6 +13,7 @@ function leggifile(nomefile) {
 
 
 
+
 const input = leggifile(__dirname+'\\input.txt');
 
 if (input) {
