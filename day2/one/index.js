@@ -27,6 +27,7 @@ if (input) {
         arrayDati.push(arrayTemp);
     });
 
+
     arrayDati.forEach(el=>{
         let crescente = 0;
         let decrescente = 0;
@@ -41,7 +42,7 @@ if (input) {
                 break;
             }
         }
-        if(crescente!=decrescente && (crescente > 0 || decrescente > 0)){
+        if(crescente!=decrescente){
             safeCount++;
         }
     });

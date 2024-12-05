@@ -28,21 +28,64 @@ if (input) {
     });
 
     arrayDati.forEach(el=>{
-        let crescente = 0;
-        let decrescente = 0;
+        let crescente = [[], 0];
+        let decrescente = [[], 0];
+        let uguali = [[], 0];
         for(let i=0; i<el.length-1; i++){
             if(el[i]>el[i+1] && el[i]<(el[i+1]+4)){
-                decrescente = 1;
+                decrescente[0].push(i);
+                decrescente[1]++;
             }else if(el[i]<el[i+1] && el[i]>(el[i+1]-4)){
-                crescente = 1;
+                crescente[0].push(i);
+                crescente[1]++;
             }else{
-                decrescente = 0;
-                crescente = 0;
-                break;
+                uguali[0].push(i);
+                uguali[1]++;
             }
         }
-        if(crescente!=decrescente && (crescente > 0 || decrescente > 0)){
+
+        if(crescente[1]==el.length-1 || decrescente[1]==el.length-1){
             safeCount++;
+        }else{
+            if(crescente[1]==el.length-2){
+                if(decrescente[1]>0){
+                    if(decrescente[0][0]>0 && decrescente[0][0]<el.length-1){
+                        if(el[decrescente[0][0]-1]<el[decrescente[0][0]+1] && el[decrescente[0][0]-1]>(el[decrescente[0][0]+1]-4)){
+                            safeCount++;
+                        }
+                    }else{
+                        safeCount++;
+                    }
+                }
+                if(uguali[1]>0){
+                    if(uguali[0][0]>0 && uguali[0][0]<el.length-1){
+                        if(el[uguali[0][0]-1]<el[uguali[0][0]+1] && el[uguali[0][0]-1]>(el[uguali[0][0]+1]-4)){
+                            safeCount++;
+                        }
+                    }else{
+                        safeCount++;
+                    }
+                }
+            }else if(decrescente[1]==el.length-2){
+                if(crescente[1]>0){
+                    if(crescente[0][0]>0 && crescente[0][0]<el.length-1){
+                        if(el[crescente[0][0]-1]>el[crescente[0][0]+1] && el[crescente[0][0]-1]<(el[crescente[0][0]+1]+4)){
+                            safeCount++;
+                        }
+                    }else{
+                        safeCount++;
+                    }
+                }
+                if(uguali[1]>0){
+                    if(uguali[0][0]>0 && uguali[0][0]<el.length-1){
+                        if(el[uguali[0][0]-1]>el[uguali[0][0]+1] && el[uguali[0][0]-1]<(el[uguali[0][0]+1]+4)){
+                            safeCount++;
+                        }
+                    }else{
+                        safeCount++;
+                    }
+                }
+            }
         }
     });
     
