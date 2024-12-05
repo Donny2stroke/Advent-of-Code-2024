@@ -17,48 +17,37 @@ const input = leggifile(__dirname+'\\input.txt');
 
 if (input) {
     arrayInput = input.split("\r\n");
-    let arrayUno = [];
-    let arrayDue = [];
-    let somma = 0;
-
+    let arrayDati = [];
+    let safeCount = 0;
 
     arrayInput.forEach(el => {
-        let temp = el.split("   ");
-        let valoreSinistra = parseInt(temp[0]);
-        let valoreDestra = parseInt(temp[1]);
-        if(arrayUno.length==0 || arrayUno[arrayUno.length-1]<valoreSinistra){
-            arrayUno.push(valoreSinistra);
-        }else{
-            for(let i = 0; i<arrayUno.length; i++){
-                if(arrayUno[i]>valoreSinistra){
-                    arrayUno.splice(i, 0, valoreSinistra);
-                    break;
-                }
-            }
-        }
-        if(arrayDue.length==0 || arrayDue[arrayDue.length-1]<valoreDestra){
-            arrayDue.push(valoreDestra);
-        }else{
-            for(let i = 0; i<arrayDue.length; i++){
-                if(arrayDue[i]>valoreDestra){
-                    arrayDue.splice(i, 0, valoreDestra);
-                    break;
-                }
-            }
-        }
+        let arrayTemp = el.split(" ").map(function(element){
+            return parseInt(element);
+        });
+        arrayDati.push(arrayTemp);
     });
 
-    for(let i=0; i<arrayUno.length; i++){
-        let differenza=0;
-        if(arrayUno[i]>=arrayDue[i]){
-            differenza = arrayUno[i] - arrayDue[i];
-        }else{
-            differenza = arrayDue[i] - arrayUno[i];
+    arrayDati.forEach(el=>{
+        let crescente = 0;
+        let decrescente = 0;
+        for(let i=0; i<el.length-1; i++){
+            if(el[i]>el[i+1] && el[i]<(el[i+1]+4)){
+                decrescente = 1;
+            }else if(el[i]<el[i+1] && el[i]>(el[i+1]-4)){
+                crescente = 1;
+            }else{
+                decrescente = 0;
+                crescente = 0;
+                break;
+            }
         }
-        somma+=differenza;
-    }
-
-    console.log(somma);
+        if(crescente!=decrescente && (crescente > 0 || decrescente > 0)){
+            safeCount++;
+        }
+    });
+    
+    
+    console.log(safeCount);
     
 
 } else {
